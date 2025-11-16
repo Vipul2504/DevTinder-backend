@@ -1,0 +1,201 @@
+const bcrypt = require("bcrypt");
+const { User } = require("./src/models/user");
+
+async function seedUsers() {
+  try {
+    const rawUsers = [
+      {
+        firstName: "Rohit",
+        lastName: "Kapoor",
+        email: "rohit@gmail.com",
+        password: "Rohit@1234",
+        age: 30,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/5.jpg",
+        about: "Mobile app developer who loves Flutter and Kotlin.",
+        skills: ["Kotlin", "Swift", "React Native", "Flutter"],
+      },
+      {
+        firstName: "Anjali",
+        lastName: "Singh",
+        email: "anjali@gmail.com",
+        password: "Anjali@1234",
+        age: 27,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/6.jpg",
+        about: "Cybersecurity researcher with ethical hacking skills.",
+        skills: ["Networking", "Linux", "Cybersecurity", "Python"],
+      },
+      {
+        firstName: "Karan",
+        lastName: "Joshi",
+        email: "karan@gmail.com",
+        password: "Karan@1234",
+        age: 29,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/7.jpg",
+        about: "Cloud engineer working with AWS and Kubernetes.",
+        skills: ["AWS", "Kubernetes", "Terraform", "CI/CD"],
+      },
+      {
+        firstName: "Neha",
+        lastName: "Mehta",
+        email: "neha@gmail.com",
+        password: "Neha@1234",
+        age: 23,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/8.jpg",
+        about: "Junior developer learning full-stack development.",
+        skills: ["JavaScript", "Express.js", "MongoDB", "Bootstrap"],
+      },
+      {
+        firstName: "Vikram",
+        lastName: "Gupta",
+        email: "vikram@gmail.com",
+        password: "Vikram@1234",
+        age: 32,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/9.jpg",
+        about: "Tech lead experienced in enterprise web apps.",
+        skills: ["C#", ".NET Core", "Azure", "SQL Server"],
+      },
+      {
+        firstName: "Aditi",
+        lastName: "Chopra",
+        email: "aditi@gmail.com",
+        password: "Aditi@1234",
+        age: 26,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/10.jpg",
+        about: "UI/UX designer turned frontend engineer.",
+        skills: ["React", "TypeScript", "Next.js", "TailwindCSS"],
+      },
+      {
+        firstName: "Manish",
+        lastName: "Kumar",
+        email: "manish@gmail.com",
+        password: "Manish@1234",
+        age: 35,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/11.jpg",
+        about: "System architect with focus on distributed computing.",
+        skills: ["Go", "Kubernetes", "Docker", "Microservices"],
+      },
+      {
+        firstName: "Divya",
+        lastName: "Raoo",
+        email: "divya@gmail.com",
+        password: "Divya@1234",
+        age: 22,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/12.jpg",
+        about: "College student building projects in web dev.",
+        skills: ["HTML", "CSS", "JavaScript", "React"],
+      },
+      {
+        firstName: "Siddharth",
+        lastName: "Bansal",
+        email: "siddharth@gmail.com",
+        password: "Siddharth@1234",
+        age: 27,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/13.jpg",
+        about: "Blockchain developer working on smart contracts.",
+        skills: ["Solidity", "Ethereum", "Node.js", "Web3.js"],
+      },
+      {
+        firstName: "Meera",
+        lastName: "Iyer",
+        email: "meera@gmail.com",
+        password: "Meera@1234",
+        age: 24,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/14.jpg",
+        about: "Data scientist focused on NLP applications.",
+        skills: ["Python", "NLP", "Transformers", "PyTorch"],
+      },
+      {
+        firstName: "Harsh",
+        lastName: "Tiwari",
+        email: "harsh@gmail.com",
+        password: "Harsh@1234",
+        age: 28,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/15.jpg",
+        about: "Game developer passionate about Unity and Unreal.",
+        skills: ["C++", "Unity", "Unreal Engine", "Blender"],
+      },
+      {
+        firstName: "Ritika",
+        lastName: "Malhotra",
+        email: "ritika@gmail.com",
+        password: "Ritika@1234",
+        age: 25,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/16.jpg",
+        about: "Product manager turned software engineer.",
+        skills: ["Agile", "Scrum", "JavaScript", "Node.js"],
+      },
+      {
+        firstName: "Nikhil",
+        lastName: "Arora",
+        email: "nikhil@gmail.com",
+        password: "Nikhil@1234",
+        age: 31,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/17.jpg",
+        about: "DevOps engineer automating everything possible.",
+        skills: ["Jenkins", "Ansible", "AWS", "Docker"],
+      },
+      {
+        firstName: "Shreya",
+        lastName: "Desai",
+        email: "shreya@gmail.com",
+        password: "Shreya@1234",
+        age: 23,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/18.jpg",
+        about: "UI developer with love for colors and layouts.",
+        skills: ["CSS", "SCSS", "TailwindCSS", "React"],
+      },
+      {
+        firstName: "Aniket",
+        lastName: "Yadav",
+        email: "aniket@gmail.com",
+        password: "Aniket@1234",
+        age: 29,
+        gender: "male",
+        photoUrl: "https://randomuser.me/api/portraits/men/19.jpg",
+        about: "Embedded systems engineer exploring IoT devices.",
+        skills: ["C", "C++", "Arduino", "Raspberry Pi"],
+      },
+      {
+        firstName: "Tanvi",
+        lastName: "Kohli",
+        email: "tanvi@gmail.com",
+        password: "Tanvi@1234",
+        age: 27,
+        gender: "female",
+        photoUrl: "https://randomuser.me/api/portraits/women/20.jpg",
+        about: "QA engineer with passion for automation testing.",
+        skills: ["Selenium", "Cypress", "Postman", "Jest"],
+      },
+      // ... add the rest here
+    ];
+
+    // Hash all passwords before inserting
+    const usersWithHashedPasswords = await Promise.all(
+      rawUsers.map(async (user) => ({
+        ...user,
+        password: await bcrypt.hash(user.password, 10),
+      }))
+    );
+
+    await User.insertMany(usersWithHashedPasswords);
+    console.log("✅ Users inserted successfully");
+  } catch (err) {
+    console.error("❌ Error inserting users:", err.message);
+  }
+}
+
+seedUsers();
