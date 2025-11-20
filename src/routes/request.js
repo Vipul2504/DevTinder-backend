@@ -3,7 +3,7 @@ const express = require("express");
 const requestRouter = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
-
+const sendEmail = require("../utils/sendEmail");
 const { UserAuth } = require("../middlewares/userAuth.js"); // middleware that attaches req.user
 const { User } = require("../models/user.js");
 const ConnectionRequest = require("../models/connectionRequest.js"); // ✅ Correct import
