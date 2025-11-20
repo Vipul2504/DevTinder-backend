@@ -33,5 +33,4 @@ connectDB()
   })
   .catch((err) => {
     console.log("Failed");
-    console.log("c");
   });
