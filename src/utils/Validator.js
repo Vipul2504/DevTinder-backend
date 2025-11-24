@@ -36,12 +36,18 @@ const ValidateSignUpData = (req) => {
  */
 // Accepts only the update object (not full req)
 const validateEditProfileData = (data) => {
-  const allowedEditFields = ["firstName", "lastName", "age", "gender", "about"];
+  const allowedEditFields = [
+    "firstName",
+    "lastName",
+    "photoUrl",
+    "age",
+    "gender",
+    "about",
+    "skills",
+  ];
 
   // Check that every field in data is allowed
   return Object.keys(data).every((field) => allowedEditFields.includes(field));
 };
-
-module.exports = { validateEditProfileData };
 
 module.exports = { ValidateSignUpData, validateEditProfileData };
