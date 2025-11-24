@@ -21,30 +21,24 @@ profileRouter.get("/profile/view", UserAuth, async (req, res) => {
 // Corrected to use findByIdAndUpdate
 profileRouter.patch("/profile/edit", UserAuth, async (req, res) => {
   try {
-    // Check if the request body contains valid data
     if (!validateEditProfileData(req.body)) {
-      return res.status(400).send("Invalid Edit Request");
+      throw new Error("Invalid Edit Request");
     }
 
-    const loggedInUserId = req.user._id; // ⚠️ FIX: Use Mongoose's findByIdAndUpdate method
+    console.log("EDIT PROFILE BODY:", req.body);
 
-    const updatedUser = await User.findByIdAndUpdate(
-      loggedInUserId,
-      { $set: req.body }, // Use $set to update only the fields in req.body
-      { new: true } // This option returns the updated document
-    );
+    const loggedInUser = req.user;
 
-    if (!updatedUser) {
-      return res.status(404).send("User not found");
-    }
+    Object.keys(req.body).forEach((key) => (loggedInUser[key] = req.body[key]));
+
+    await loggedInUser.save();
 
     res.json({
-      message: `${updatedUser.firstName}, your profile was updated successfully.`,
-      data: updatedUser,
+      message: `${loggedInUser.firstName}, your profile updated successfuly`,
+      data: loggedInUser,
     });
-  } catch (error) {
-    console.error("Profile update failed:", error);
-    res.status(500).send("ERROR: " + error.message);
+  } catch (err) {
+    res.status(400).send("ERROR : " + err.message);
   }
 });
 
