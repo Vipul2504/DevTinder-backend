@@ -102,8 +102,8 @@ authRouter.post("/login", async (req, res) => {
     // sameSite = "strict" → helps prevent CSRF attacks
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // ⚠️ set to true in production (HTTPS)
-      sameSite: "strict",
+      secure: true, // ⚠️ set to true in production (HTTPS)
+      sameSite: "none",
     });
 
     res.send(user);
@@ -123,8 +123,8 @@ authRouter.post("/login", async (req, res) => {
 authRouter.post("/logout", async (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, // ⚠️ set to true in production (HTTPS)
-    sameSite: "strict",
+    secure: true, // ⚠️ set to true in production (HTTPS)
+    sameSite: "none",
   });
   res.send("Logout successful");
 });
