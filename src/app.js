@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -28,7 +30,7 @@ app.use("/", userRouter);
 connectDB()
   .then(() => {
     console.log("Database connected");
-    app.listen(3000, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server started on 3000");
     });
   })
